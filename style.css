@@ -12,7 +12,171 @@ body {
     overflow-x: hidden;
 }
 
-/* Scroll & Sticky Setup */
+/* Navigation & Logo */
+.nav-logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.nav-logo-img {
+    height: 48px; 
+    width: auto;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.nav-logo-link:hover .nav-logo-img {
+    transform: scale(1.05);
+}
+
+.top-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 20px 5%;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    background: rgba(255, 255, 255, 0.01);
+}
+
+.nav-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #1d1d1f;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: opacity 0.2s;
+}
+
+.nav-links a:hover {
+    opacity: 0.7;
+}
+
+.nav-hidden {
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Floating Atmosphere Elements */
+.floating-elements {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.particle {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    color: #5170ff;
+    /* Darker icons for better visibility */
+    opacity: 0.25; 
+    stroke-width: 1.8px;
+    animation: drift 25s infinite ease-in-out alternate, 
+               breathe 6s infinite ease-in-out;
+    transition: transform 0.6s cubic-bezier(0.2, 0, 0.2, 1), 
+                opacity 0.6s ease, 
+                left 0.8s ease, 
+                top 0.8s ease;
+}
+
+/* --- Position Mapping --- */
+
+/* Corner/Perimeter Clusters */
+.p1 { top: 12%; left: 8%; transform: scale(0.9); animation-delay: -2s; }
+.p2 { top: 18%; right: 12%; transform: scale(1.1); animation-delay: -5s; }
+.p3 { bottom: 15%; left: 10%; transform: scale(0.8); animation-delay: -1s; }
+.p4 { bottom: 20%; right: 15%; transform: scale(1.2); animation-delay: -8s; }
+
+/* Middle-Zone Clusters (Addressing the emptiness) */
+.p5 { top: 45%; left: 25%; transform: scale(0.7); animation-delay: -3s; }
+.p6 { top: 35%; right: 30%; transform: scale(0.85); animation-delay: -6s; }
+.p7 { bottom: 40%; left: 35%; transform: scale(0.95); animation-delay: -10s; }
+.p8 { bottom: 35%; right: 20%; transform: scale(0.75); animation-delay: -4s; }
+
+/* Filler/Depth Icons */
+.p9 { top: 60%; left: 15%; transform: scale(0.6); opacity: 0.15; }
+.p10 { top: 25%; left: 45%; transform: scale(0.5); opacity: 0.15; }
+.p11 { bottom: 50%; right: 40%; transform: scale(0.65); opacity: 0.2; }
+.p12 { top: 10%; left: 30%; transform: scale(0.7); opacity: 0.18; }
+
+@keyframes breathe {
+    0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.2; }
+    50% { transform: translateY(-25px) rotate(8deg); opacity: 0.35; }
+}
+
+@keyframes drift {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(50px); }
+}
+
+/* Scroll Prompt */
+.scroll-prompt {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    z-index: 10;
+    opacity: 0.6;
+    transition: opacity 0.5s ease;
+}
+
+.scroll-prompt span {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: #1d1d1f;
+}
+
+.mouse {
+    width: 26px;
+    height: 42px;
+    border: 2px solid #1d1d1f;
+    border-radius: 20px;
+    position: relative;
+}
+
+.wheel {
+    width: 3px;
+    height: 8px;
+    background: #5170ff;
+    border-radius: 2px;
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: scroll-wheel 2s infinite;
+}
+
+@keyframes scroll-wheel {
+    0% { transform: translate(-50%, 0); opacity: 1; }
+    100% { transform: translate(-50%, 15px); opacity: 0; }
+}
+
+/* Sticky & Hero Setup */
 .scroll-wrapper {
     height: 300vh; 
 }
@@ -27,7 +191,6 @@ body {
     overflow: hidden;
 }
 
-/* Hero Elements */
 h1 {
     font-size: 5rem;
     font-weight: 700;
@@ -47,7 +210,7 @@ h1 {
     pointer-events: none;
 }
 
-/* Icon Cards (Glassmorphism) */
+/* Floating Bento Icon Cards */
 .icon-card {
     position: absolute;
     display: flex;
@@ -94,7 +257,6 @@ h1 {
     opacity: 0.8;
 }
 
-/* Initial Off-screen Positions */
 #card-1 { top: 20%; left: -25%; }
 #card-2 { top: 60%; right: -25%; }
 #card-3 { top: 15%; right: -30%; }
@@ -117,7 +279,7 @@ h1 {
     height: auto;
 }
 
-/* Bento Grid Features Section */
+/* Bento Grid Section */
 .features-section {
     padding: 120px 5% 40px 5%; 
     background: #fafafa;
@@ -265,16 +427,14 @@ h1 {
     color: #5170ff;
     margin-bottom: 15px;
     stroke-width: 1.5;
-    /* RE-ADDED TRANSITION FOR SMOOTH HOVER */
     transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-/* RE-ADDED HOVER ANIMATION FOR SMALL BENTO CARDS */
 .bento-item.small:hover .micro-icon {
     transform: scale(1.2) rotate(5deg);
 }
 
-/* Industry Carousel - FIXED CONTINUOUS LOOP */
+/* Industry Carousel */
 .industry-carousel {
     padding: 60px 0;
     background-color: #fafafa;

@@ -36,7 +36,7 @@ window.addEventListener('scroll', () => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-    // --- 1. Intersection Observer for Bento Grid & Header ---
+    // --- 1. Intersection Observer for Bento Grid, Process Steps & Headers ---
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px' 
@@ -51,12 +51,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, observerOptions);
 
-    document.querySelectorAll('.bento-item').forEach(item => {
+    // Observe all bento items and process steps
+    document.querySelectorAll('.bento-item, .process-step').forEach(item => {
         revealObserver.observe(item);
     });
 
-    const sectionHeader = document.querySelector('.section-header');
-    if (sectionHeader) revealObserver.observe(sectionHeader);
+    // UPDATED: Observe ALL section headers (Features, Process, etc.)
+    document.querySelectorAll('.section-header').forEach(header => {
+        revealObserver.observe(header);
+    });
 
     // --- 2. Main Sticky Scroll Animation Logic ---
     window.addEventListener('scroll', () => {
@@ -70,7 +73,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const cards = Array.from(document.querySelectorAll('.icon-card'));
         const particles = document.querySelector('.floating-elements');
 
-        // NEW: Particle Fade Out (Fades to 0 within the first 5% of scroll)
+        // Configuration: Adjust this value to match your screenshot size
+        const logoMaxScale = 2.0; 
+
+        // Particle Fade Out
         if (particles) {
             particles.style.opacity = Math.max(0, 1 - (scrollProp / 0.05));
         }
@@ -103,14 +109,15 @@ document.addEventListener('DOMContentLoaded', () => {
             logo.style.display = 'none'; 
             sticky.style.transform = `translateY(0)`;
         } 
-        // Phase 2: Zoom (30% - 80%)
+        // Phase 2: Zoom to Fixed Point (30% - 80%)
         else if (scrollProp >= 0.3 && scrollProp < 0.8) {
             const progress = (scrollProp - 0.3) / 0.5; 
             const easedZoomProgress = progress * progress; 
             
             heroText.style.opacity = progress > 0.4 ? 0 : 1 - (progress * 2.5); 
             
-            const scaleValue = 0.5 + (easedZoomProgress * 3.5); 
+            // Calculate scale from 0.5 up to our defined max
+            const scaleValue = 0.5 + (easedZoomProgress * (logoMaxScale - 0.5)); 
             
             logo.style.display = 'flex';
             logo.style.opacity = Math.min(progress * 2, 1);
@@ -119,12 +126,18 @@ document.addEventListener('DOMContentLoaded', () => {
             cards.forEach(card => card.style.opacity = 0);
             sticky.style.transform = `translateY(0)`;
         } 
-        // Phase 3: Final Exit (80%+)
+        // Phase 3: Hold Scale & Scroll Out (80%+)
         else {
             const finalExitProg = Math.min((scrollProp - 0.8) / 0.2, 1);
+            
+            // Move the entire container up
             sticky.style.transform = `translateY(-${finalExitProg * 100}vh)`;
+            
+            // Lock the scale at the max reached in Phase 2
+            logo.style.transform = `scale(${logoMaxScale})`;
+            
+            // Fade out the logo as it exits for a cleaner look
             logo.style.opacity = 1 - finalExitProg;
-            logo.style.transform = `scale(4)`;
         }
     });
 });

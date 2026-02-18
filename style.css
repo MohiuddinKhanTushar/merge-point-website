@@ -718,3 +718,44 @@ h1 {
     transform: scale(1.05);
     box-shadow: 0 20px 40px rgba(81, 112, 255, 0.2);
 }
+
+/* Footer styles */
+
+.site-footer {
+    padding: 40px 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: #888;
+    font-size: 0.9rem;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.footer-links {
+    display: flex;
+    gap: 30px;
+}
+
+.footer-links a {
+    color: #888;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #007aff; /* Use your brand blue here */
+}
+
+@media (max-width: 600px) {
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+    }
+}

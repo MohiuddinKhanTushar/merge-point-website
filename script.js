@@ -1,42 +1,69 @@
 const scrollPrompt = document.querySelector('.scroll-prompt');
 const nav = document.getElementById('main-nav');
+const menuToggle = document.querySelector('.menu-toggle');
+const navLinksContainer = document.querySelector('.nav-links');
+const navLinks = document.querySelectorAll('.nav-links a');
 let lastScrollY = window.scrollY;
 
-// Navigation and Scroll Prompt Logic
+// --- 1. MOBILE MENU LOGIC ---
+if (menuToggle) {
+    menuToggle.addEventListener('click', () => {
+        const isActive = menuToggle.classList.toggle('active');
+        navLinksContainer.classList.toggle('active');
+        
+        // Prevent body scroll when menu is open
+        document.body.style.overflow = isActive ? 'hidden' : 'auto';
+    });
+}
+
+// Close mobile menu when a link is clicked
+navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+        menuToggle.classList.remove('active');
+        navLinksContainer.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    });
+});
+
+// --- 2. NAVIGATION & SCROLL PROMPT LOGIC ---
 window.addEventListener('scroll', () => {
     const currentScrollY = window.scrollY;
 
-    // 1. Scroll Prompt Fade
-    if (currentScrollY > 50) {
-        scrollPrompt.style.opacity = "0";
-        scrollPrompt.style.pointerEvents = "none";
-    } else {
-        scrollPrompt.style.opacity = "0.6";
-        scrollPrompt.style.pointerEvents = "auto";
+    // Scroll Prompt Fade
+    if (scrollPrompt) {
+        if (currentScrollY > 50) {
+            scrollPrompt.style.opacity = "0";
+            scrollPrompt.style.pointerEvents = "none";
+        } else {
+            scrollPrompt.style.opacity = "0.6";
+            scrollPrompt.style.pointerEvents = "auto";
+        }
     }
 
-    // 2. Navigation Show/Hide Logic
-    if (currentScrollY <= 10) {
-        nav.classList.remove('nav-hidden');
-        nav.style.background = "transparent";
-        nav.style.boxShadow = "none";
-    } 
-    else if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        nav.classList.add('nav-hidden');
-    } 
-    else if (currentScrollY < lastScrollY) {
-        nav.classList.remove('nav-hidden');
-        nav.style.background = "rgba(255, 255, 255, 0.8)";
-        nav.style.backdropFilter = "blur(10px)";
-        nav.style.webkitBackdropFilter = "blur(10px)";
-        nav.style.boxShadow = "0 4px 30px rgba(0, 0, 0, 0.03)";
+    // Navigation Show/Hide (Only if mobile menu isn't open)
+    if (!navLinksContainer.classList.contains('active')) {
+        if (currentScrollY <= 10) {
+            nav.classList.remove('nav-hidden');
+            nav.style.background = "transparent";
+            nav.style.boxShadow = "none";
+        } 
+        else if (currentScrollY > lastScrollY && currentScrollY > 100) {
+            nav.classList.add('nav-hidden');
+        } 
+        else if (currentScrollY < lastScrollY) {
+            nav.classList.remove('nav-hidden');
+            nav.style.background = "rgba(255, 255, 255, 0.8)";
+            nav.style.backdropFilter = "blur(10px)";
+            nav.style.webkitBackdropFilter = "blur(10px)";
+            nav.style.boxShadow = "0 4px 30px rgba(0, 0, 0, 0.03)";
+        }
     }
 
     lastScrollY = currentScrollY;
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-    // --- 1. Intersection Observer for Bento Grid, Process Steps & Headers ---
+    // --- 3. INTERSECTION OBSERVER ---
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px' 
@@ -51,19 +78,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, observerOptions);
 
-    // Observe all bento items and process steps
-    document.querySelectorAll('.bento-item, .process-step').forEach(item => {
+    document.querySelectorAll('.bento-item, .process-step, .section-header').forEach(item => {
         revealObserver.observe(item);
     });
 
-    // UPDATED: Observe ALL section headers (Features, Process, etc.)
-    document.querySelectorAll('.section-header').forEach(header => {
-        revealObserver.observe(header);
-    });
-
-    // --- 2. Main Sticky Scroll Animation Logic ---
+    // --- 4. MAIN STICKY SCROLL ANIMATION ---
     window.addEventListener('scroll', () => {
-        const scrollProp = window.scrollY / (window.innerHeight * 3); 
+        // Adjust animation scale for mobile (faster progression on smaller screens)
+        const isMobile = window.innerWidth <= 768;
+        const scrollMultiplier = isMobile ? 2.5 : 3; 
+        const scrollProp = window.scrollY / (window.innerHeight * scrollMultiplier); 
         
         const heroText = document.getElementById('hero-text');
         const partKnowledge = document.getElementById('text-knowledge');
@@ -73,8 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const cards = Array.from(document.querySelectorAll('.icon-card'));
         const particles = document.querySelector('.floating-elements');
 
-        // Configuration: Adjust this value to match your screenshot size
-        const logoMaxScale = 2.0; 
+        const logoMaxScale = isMobile ? 1.2 : 2.0; 
 
         // Particle Fade Out
         if (particles) {
@@ -93,10 +116,11 @@ document.addEventListener('DOMContentLoaded', () => {
             partMerged.style.opacity = mergedProg;
 
             if (cards.length >= 6) {
-                cards[0].style.transform = `translateX(${easedIconProg * 60}vw) rotate(8deg)`;
-                cards[1].style.transform = `translateX(-${easedIconProg * 60}vw) rotate(-8deg)`;
-                cards[2].style.transform = `translate(${easedIconProg * -40}vw, ${easedIconProg * 20}vh) rotate(5deg)`;
-                cards[3].style.transform = `translate(${easedIconProg * 40}vw, ${easedIconProg * -20}vh) rotate(-5deg)`;
+                const spread = isMobile ? 40 : 60; // Narrower spread for mobile
+                cards[0].style.transform = `translateX(${easedIconProg * spread}vw) rotate(8deg)`;
+                cards[1].style.transform = `translateX(-${easedIconProg * spread}vw) rotate(-8deg)`;
+                cards[2].style.transform = `translate(${easedIconProg * -30}vw, ${easedIconProg * 20}vh) rotate(5deg)`;
+                cards[3].style.transform = `translate(${easedIconProg * 30}vw, ${easedIconProg * -20}vh) rotate(-5deg)`;
                 cards[4].style.transform = `translateY(-${easedIconProg * 70}vh) rotate(-3deg)`;
                 cards[5].style.transform = `translateY(-${easedIconProg * 70}vh) rotate(3deg)`;
             }
@@ -116,7 +140,6 @@ document.addEventListener('DOMContentLoaded', () => {
             
             heroText.style.opacity = progress > 0.4 ? 0 : 1 - (progress * 2.5); 
             
-            // Calculate scale from 0.5 up to our defined max
             const scaleValue = 0.5 + (easedZoomProgress * (logoMaxScale - 0.5)); 
             
             logo.style.display = 'flex';
@@ -129,14 +152,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // Phase 3: Hold Scale & Scroll Out (80%+)
         else {
             const finalExitProg = Math.min((scrollProp - 0.8) / 0.2, 1);
-            
-            // Move the entire container up
             sticky.style.transform = `translateY(-${finalExitProg * 100}vh)`;
-            
-            // Lock the scale at the max reached in Phase 2
             logo.style.transform = `scale(${logoMaxScale})`;
-            
-            // Fade out the logo as it exits for a cleaner look
             logo.style.opacity = 1 - finalExitProg;
         }
     });

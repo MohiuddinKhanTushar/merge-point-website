@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product | Merge Point</title>
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Product Specific Glassmorphism & Layout */
+        .product-hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            background: radial-gradient(circle at center, rgba(81, 112, 255, 0.05) 0%, transparent 70%);
+        }
+
+        /* Brand Highlight */
+        .text-purple { color: #5170ff; }
+
+        /* Animation Styles for Hero */
+        .fade-in-text {
+            opacity: 0;
+            display: inline-block;
+            transform: translateY(10px);
+            animation: heroFadeIn 0.8s ease forwards;
+        }
+
+        .delay-1s { animation-delay: 1s; }
+
+        @keyframes heroFadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Typewriter Cursor (Optional but classic) */
+        .typewriter::after {
+            content: "|";
+            animation: blink 0.7s infinite;
+            margin-left: 2px;
+            color: #5170ff;
+        }
+        
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        .product-section {
+            padding: 100px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+            opacity: 0; 
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .product-section.reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 30px;
+            padding: 50px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.04);
+        }
+
+        .reverse .glass-panel { grid-template-columns: 1fr 1fr; }
+
+        .product-media {
+            width: 100%;
+            border-radius: 20px;
+            background: #f5f5f7;
+            aspect-ratio: 16/10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.05);
+        }
+
+        .product-media video, .product-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-info h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #1d1d1f;
+        }
+
+        .product-tag {
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 700;
+            font-size: 0.8rem;
+            color: #5170ff;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        @media (max-width: 968px) {
+            .glass-panel { grid-template-columns: 1fr; padding: 30px; }
+            .reverse .glass-panel { display: flex; flex-direction: column-reverse; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="top-nav" id="main-nav">
+        <div class="nav-content">
+            <a href="index.html" class="nav-logo-link">
+                <img src="assets/website-logo.png" alt="Merge Point Logo" class="nav-logo-img">
+            </a>
+            <div class="nav-links">
+                <a href="product.html" class="active">Product</a>
+                <a href="index.html#use-case">Use Case</a>
+                <a href="index.html#documentation">Documentation</a>
+                <a href="contact.html" class="nav-cta">Book a Demo</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="product-hero">
+        <h1 class="section-title">
+            <span class="fade-in-text">One flow.</span> 
+            <span class="fade-in-text text-purple delay-1s">Total control.</span>
+        </h1>
+        <p class="section-subtitle typewriter" id="typewriter-text"></p>
+    </header>
+
+    <main>
+        <section class="product-section" id="knowledge-base">
+            <div class="glass-panel">
+                <div class="product-info">
+                    <span class="product-tag">01. Centralize</span>
+                    <h2>The Knowledge Base</h2>
+                    <p>Your "Source of Truth" lives here. Upload Master RFI documents, company policies, case studies, and service updates into a secure, vector-indexed environment.</p>
+                    <ul class="detail-list">
+                        <li>Automatic data extraction & categorization</li>
+                        <li>Regional residency in europe-west2</li>
+                        <li>Version-controlled policy tracking</li>
+                    </ul>
+                </div>
+                <div class="product-media">
+                    <img src="assets/product-kb-placeholder.png" alt="Knowledge Base Interface">
+                </div>
+            </div>
+        </section>
+
+        <section class="product-section reverse" id="workspace">
+            <div class="glass-panel">
+                <div class="product-media">
+                    <video autoplay muted loop playsinline>
+                        <source src="assets/workspace-demo.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="product-info">
+                    <span class="product-tag">02. Generate</span>
+                    <h2>AI Workspace</h2>
+                    <p>Transform blank pages into professional drafts. Our AI Workspace uses context-aware retrieval to draft responses based on your specific company DNA.</p>
+                    <ul class="detail-list">
+                        <li>Automated tender sectioning</li>
+                        <li>Cross-referencing with Master RFIs</li>
+                        <li>Tone-matching for industry standards</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="product-section" id="team-hub">
+            <div class="glass-panel">
+                <div class="product-info">
+                    <span class="product-tag">03. Collaborate</span>
+                    <h2>Team Hub</h2>
+                    <p>Internal approvals, simplified. Move drafts through a structured management pipeline where leads can suggest edits and verify section accuracy.</p>
+                    <ul class="detail-list">
+                        <li>Granular manager permissions</li>
+                        <li>In-line suggestions and feedback loops</li>
+                        <li>Real-time approval status tracking</li>
+                    </ul>
+                </div>
+                <div class="product-media">
+                    <img src="assets/product-team-placeholder.png" alt="Team Hub Collaboration">
+                </div>
+            </div>
+        </section>
+
+        <section class="product-section reverse" id="extract-pdf">
+            <div class="glass-panel">
+                <div class="product-media">
+                    <img src="assets/product-export-placeholder.png" alt="PDF Export View">
+                </div>
+                <div class="product-info">
+                    <span class="product-tag">04. Deliver</span>
+                    <h2>Extract PDF</h2>
+                    <p>Ready for submission in one click. Generate perfectly formatted RFI responses that reflect your corporate brand identity automatically.</p>
+                    <ul class="detail-list">
+                        <li>Custom branded title pages</li>
+                        <li>Automatic header/footer sectioning</li>
+                        <li>Professional contact & appendix pages</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-left">
+                <p>&copy; 2026 Merge Point. All rights reserved.</p>
+            </div>
+            <div class="footer-links">
+                <a href="contact.html">Contact Us</a>
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms & Conditions</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // 1. Intersection Observer for Scroll Animations
+        const observerOptions = { threshold: 0.2 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.product-section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // 2. Typewriter Effect for Hero Subtitle
+        const text = "Transform complex tenders into winning drafts instantly. Our AI scans active bids and generates professional ready to submit responses using your verified Source of Truth.";
+        const speed = 30; // Milliseconds per character
+        let i = 0;
+
+        function typeWriter() {
+            if (i < text.length) {
+                document.getElementById("typewriter-text").innerHTML += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, speed);
+            }
+        }
+
+        // Start typewriter after the headline animations finish (approx 2s delay)
+        window.onload = () => {
+            setTimeout(typeWriter, 1800);
+        };
+    </script>
+</body>
+</html>

@@ -8,56 +8,21 @@ body.legal-page {
     overflow-x: hidden;
 }
 
-/* 2. Navigation Consistency - MATHEMATICALLY CENTERED */
-.top-nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    /* Removed 5% padding to ensure perfect mathematical centering */
-    padding: 4px 0; 
-    background: rgba(250, 250, 250, 0.8);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-}
+/* REMOVED: .top-nav, .nav-content, .nav-logo-img, and .nav-links a 
+   These are now handled entirely by style.css to ensure 100% alignment.
+*/
 
-.nav-content {
-    /* Matched to 1000px to line up with the cards and footer line */
-    max-width: 1000px; 
-    width: 90%; /* Fallback for smaller screens */
-    margin: 0 auto; /* This forces equal gaps on the left and right */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.nav-logo-img {
-    height: 58px;
-    width: auto;
-    transition: transform 0.3s ease;
-}
-
-.nav-links a {
-    text-decoration: none;
-    color: #1d1d1f;
-    font-size: 0.9rem;
-    font-weight: 500;
-    transition: opacity 0.2s;
-}
-
-/* 3. Layout Container */
+/* 2. Layout Container */
 .simple-container {
-    max-width: 1000px;
+    max-width: 1000px; /* Aligns with index.html's container width */
     margin: 0 auto;
-    padding: 160px 5% 100px;
+    padding: 160px 5% 100px; /* High top padding to clear the fixed nav */
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-/* 4. Contact Hero Section */
+/* 3. Contact Hero Section */
 .contact-hero {
     text-align: center;
     margin-bottom: 60px;
@@ -89,7 +54,7 @@ body.legal-page {
     line-height: 1.4;
 }
 
-/* 5. Contact Cards (Bento Style) */
+/* 4. Contact Cards (Bento Style) */
 .contact-methods {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -101,7 +66,7 @@ body.legal-page {
 .contact-card {
     background: #f5f5f7;
     border-radius: 24px;
-    padding: 30px 40px 50px; /* Shifted up slightly */
+    padding: 30px 40px 50px;
     border: 1px solid transparent;
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     display: flex;
@@ -142,7 +107,7 @@ body.legal-page {
     opacity: 0.7;
 }
 
-/* 6. Clean Footer - MATHEMATICALLY CENTERED */
+/* 5. Clean Footer */
 .simple-footer {
     width: 100%;
     padding: 60px 0 40px; 
@@ -151,7 +116,7 @@ body.legal-page {
 
 .footer-container {
     max-width: 1000px; 
-    width: 90%;       
+    width: 90%;          
     margin: 0 auto;    
     display: flex;
     justify-content: space-between;
@@ -181,7 +146,7 @@ body.legal-page {
     color: #5170ff;
 }
 
-/* 7. Mobile Responsive */
+/* 6. Mobile Responsive */
 @media (max-width: 768px) {
     .contact-hero h1 {
         font-size: 2.5rem;
@@ -190,5 +155,8 @@ body.legal-page {
         flex-direction: column;
         gap: 20px;
         text-align: center;
+    }
+    .contact-methods {
+        grid-template-columns: 1fr;
     }
 }

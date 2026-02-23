@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy | Merge Point</title>
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .policy-container {
+            max-width: 800px;
+            margin: 150px auto 100px auto;
+            padding: 0 20px;
+            line-height: 1.8;
+            color: #424245;
+        }
+        .policy-container h1 {
+            font-size: 3rem;
+            margin-bottom: 40px;
+            text-align: left;
+        }
+        .policy-container h2 {
+            color: #1d1d1f;
+            margin-top: 40px;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        .last-updated {
+            color: #86868b;
+            font-size: 0.9rem;
+            margin-bottom: 40px;
+            display: block;
+        }
+        .policy-section {
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="top-nav" id="main-nav">
+        <div class="nav-content">
+            <a href="index.html" class="nav-logo-link">
+                <img src="assets/website-logo.png" alt="Merge Point Logo" class="nav-logo-img">
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="index.html#product">Product</a>
+                <a href="contact.html" class="nav-cta">Get Started</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="policy-container">
+        <span class="last-updated">Last Updated: February 20, 2026</span>
+        <h1>Privacy Policy</h1>
+
+        <div class="policy-section">
+            <p>At Merge Point, we recognize that your corporate knowledge is your most valuable asset. This policy outlines how we collect, protect, and handle your data when you use our AI-driven bidding platform.</p>
+        </div>
+
+        <h2>1. Data Collection</h2>
+        <p>We collect information necessary to provide our services, including:</p>
+        <ul class="detail-list">
+            <li><strong>Account Information:</strong> Name, email, and company details provided during sign-up.</li>
+            <li><strong>Knowledge Base Content:</strong> Documents, RFIs, and SLAs you upload to your Source of Truth.</li>
+            <li><strong>Usage Data:</strong> Information on how you interact with our AI Workspace to improve performance.</li>
+        </ul>
+
+        <h2>2. Data Residency & Sovereignty</h2>
+        <p>As per our commitment to UK and European clients, all Knowledge Base data is stored in the <strong>europe-west2 (London)</strong> region. We ensure that your data remains within these boundaries to comply with local regulations and ensure low-latency sync between Firestore and Pinecone.</p>
+
+        <h2>3. How We Use Your Data</h2>
+        <p>Your data is used exclusively to:</p>
+        <ul>
+            <li>Generate bid drafts and analyze tender documents.</li>
+            <li>Maintain your private Knowledge Base.</li>
+            <li>Provide technical support and security updates.</li>
+        </ul>
+        <p><strong>Merge Point does not sell your data or use your proprietary documents to train foundation models for other customers.</strong></p>
+
+        <h2>4. Security</h2>
+        <p>We employ enterprise-grade security measures, including AES-256 encryption at rest and TLS encryption in transit. Access to your environment is strictly controlled via secure authentication protocols.</p>
+
+        <h2>5. Your Rights</h2>
+        <p>You retain full ownership of your data. You may export or request the permanent deletion of your Knowledge Base at any time. Our `cleanupKnowledgeBase` protocols ensure that deletions are synced across all database layers instantly.</p>
+
+        <h2>6. Contact Us</h2>
+        <p>If you have questions regarding this policy, please contact our Data Protection Officer at <strong>privacy@mergepoint.ai</strong>.</p>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>&copy; 2026 Merge Point. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="contact.html">Contact Us</a>
+                <a href="terms.html">Terms & Conditions</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

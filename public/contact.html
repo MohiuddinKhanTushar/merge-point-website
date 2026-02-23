@@ -5,14 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact | Merge Point</title>
     <link rel="icon" type="image/png" href="assets/favicon.png">
+    <link rel="stylesheet" href="style.css"> 
     <link rel="stylesheet" href="contact.css">
 </head>
 <body class="legal-page">
-    <nav class="top-nav">
+    <nav class="top-nav" id="main-nav">
         <div class="nav-content">
             <a href="/" class="nav-logo-link">
                 <img src="assets/website-logo.png" alt="Merge Point Logo" class="nav-logo-img">
             </a>
+
+            <button class="menu-toggle" aria-label="Toggle navigation">
+                <span class="hamburger"></span>
+            </button>
+
             <div class="nav-links">
                 <a href="/">Back to Home</a>
             </div>
@@ -38,7 +44,8 @@
                 <p>Existing client? Reach out to our engineering team.</p>
                 <a href="mailto:support@mergepoint-software.com" class="contact-link">support@mergepoint-software.com</a>
             </div>
-        </section> </main>
+        </section> 
+    </main>
 
     <footer class="simple-footer">
         <div class="footer-container">
@@ -49,5 +56,7 @@
             </div>
         </div>
     </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>

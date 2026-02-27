@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing | Merge Point</title>
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="product.css">
+    <style>
+        /* Pricing Section Layout */
+        .pricing-section {
+            padding: 160px 20px 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: radial-gradient(circle at top, rgba(81, 112, 255, 0.05) 0%, transparent 70%);
+            min-height: 100vh;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            width: 100%;
+            margin-top: 60px;
+        }
+
+        /* Card Styling */
+        .price-card {
+            background: white;
+            padding: 40px;
+            border-radius: 24px;
+            border: 1px solid rgba(0,0,0,0.06);
+            display: flex;
+            flex-direction: column;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        .price-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 25px 50px rgba(81, 112, 255, 0.12);
+        }
+
+        .featured {
+            border: 2px solid #5170ff;
+            box-shadow: 0 10px 30px rgba(81, 112, 255, 0.08);
+        }
+
+        .badge {
+            position: absolute;
+            top: -16px;
+            right: 24px;
+            background: #5170ff;
+            color: white;
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .price-header h3 { margin-bottom: 8px; color: #1a1a1a; font-size: 1.6rem; }
+        .amount { font-size: 3rem; font-weight: 800; color: #1a1a1a; letter-spacing: -1px; }
+        .period { color: #777; font-size: 1.1rem; font-weight: 400; }
+        
+        .features-list {
+            margin: 40px 0;
+            list-style: none;
+            padding: 0;
+            flex-grow: 1;
+        }
+
+        .features-list li {
+            padding: 14px 0;
+            color: #444;
+            display: flex;
+            align-items: flex-start;
+            border-bottom: 1px solid rgba(0,0,0,0.04);
+            font-size: 1.05rem;
+        }
+
+        .features-list li:last-child { border-bottom: none; }
+
+        .features-list li::before {
+            content: "✓";
+            color: #5170ff;
+            font-weight: 900;
+            margin-right: 14px;
+            flex-shrink: 0;
+        }
+
+        /* CTAs */
+        .price-cta {
+            text-decoration: none;
+            text-align: center;
+            padding: 20px;
+            border-radius: 14px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            display: block;
+            font-size: 1.1rem;
+        }
+
+        .primary-cta { background: #5170ff; color: white; }
+        .secondary-cta { background: rgba(81, 112, 255, 0.08); color: #5170ff; }
+        
+        .primary-cta:hover { background: #3d58d3; box-shadow: 0 10px 20px rgba(81, 112, 255, 0.2); }
+        .secondary-cta:hover { background: rgba(81, 112, 255, 0.15); }
+
+        /* Navbar Global Compatibility */
+        .top-nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+        .nav-hidden { transform: translateY(-100%); }
+    </style>
+</head>
+<body>
+    <nav class="top-nav" id="main-nav">
+        <div class="nav-content">
+            <a href="index.html" class="nav-logo-link">
+                <img src="assets/website-logo.png" alt="Merge Point" class="nav-logo-img">
+            </a>
+            <button class="menu-toggle" aria-label="Toggle Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="product.html">Product</a>
+                <a href="pricing.html" class="active">Pricing</a>
+                <a href="contact.html">Contact</a>
+                <a href="signup.html" class="nav-cta">Get Started</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="pricing-section">
+        <div class="product-info section-header" style="text-align: center;">
+            <span class="product-tag">Transparent Tiers</span>
+            <h2>Fair Pricing for Growing Teams</h2>
+            <p>Direct access to our core automation tools. UK Data Residency guaranteed.</p>
+        </div>
+
+        <div class="pricing-grid">
+            <div class="price-card bento-item">
+                <div class="price-header">
+                    <h3>Starter</h3>
+                    <div class="amount">£99<span class="period">/mo</span></div>
+                </div>
+                <ul class="features-list">
+                    <li><strong>3 User Seats</strong> (1 Admin + 2 Staff)</li>
+                    <li><strong>100 Documents</strong> Knowledge Base</li>
+                    <li><strong>20 AI Drafts</strong> per month</li>
+                    <li>Standard Email Support</li>
+                    <li>Secure UK Data Residency</li>
+                </ul>
+                <a href="signup.html?plan=starter" class="price-cta secondary-cta">Select Starter</a>
+            </div>
+
+            <div class="price-card featured bento-item">
+                <div class="badge">Recommended</div>
+                <div class="price-header">
+                    <h3>Business</h3>
+                    <div class="amount">£349<span class="period">/mo</span></div>
+                </div>
+                <ul class="features-list">
+                    <li><strong>11 User Seats</strong> (1 Admin + 10 Staff)</li>
+                    <li><strong>1,000 Documents</strong> Knowledge Base</li>
+                    <li><strong>250 AI Drafts</strong> per month</li>
+                    <li><strong>Priority Sync & Support</strong></li>
+                    <li><strong>Direct Onboarding Call</strong></li>
+                </ul>
+                <a href="signup.html?plan=business" class="price-cta primary-cta">Select Business</a>
+            </div>
+
+            <div class="price-card bento-item">
+                <div class="price-header">
+                    <h3>Enterprise</h3>
+                    <div class="amount">Custom</div>
+                </div>
+                <ul class="features-list">
+                    <li><strong>Unlimited</strong> Users & Documents</li>
+                    <li><strong>Unlimited</strong> AI Drafts</li>
+                    <li><strong>White-Glove Implementation</strong></li>
+                    <li><strong>Custom Integration Consulting</strong></li>
+                    <li>Dedicated Account Manager</li>
+                </ul>
+                <a href="mailto:booking@mergepoint-software.com?subject=Enterprise%20Pricing%20Inquiry" class="price-cta secondary-cta">Contact Sales</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>&copy; 2026 Merge Point. All rights reserved. Hosted in europe-west2.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

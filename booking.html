@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book a Demo | Merge Point</title>
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="product.css">
+    <style>
+        .booking-hero {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle at center, rgba(81, 112, 255, 0.05) 0%, transparent 70%);
+        }
+        .form-container { max-width: 550px; width: 90%; position: relative; min-height: 400px; }
+        
+        .booking-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        .booking-form input, .booking-form textarea {
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid rgba(81, 112, 255, 0.2);
+            background: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        .booking-form input:focus, .booking-form textarea:focus {
+            border-color: #5170ff;
+            box-shadow: 0 0 0 4px rgba(81, 112, 255, 0.1);
+        }
+
+        #success-state {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+            animation: fadeIn 0.5s ease;
+        }
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: #4BB543;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            margin: 0 auto 20px;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-content">
+            <a href="index.html" class="nav-logo-link">
+                <img src="assets/website-logo.png" alt="Merge Point" class="nav-logo-img">
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="product.html">Product</a>
+                <a href="contact.html">Contact</a>
+                <a href="booking.html" class="nav-cta">Book a Demo</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="booking-hero">
+        <div class="glass-panel form-container">
+            <div id="form-state">
+                <div class="product-info" style="text-align: center;">
+                    <span class="product-tag">Schedule</span>
+                    <h2>Experience Merge Point</h2>
+                    <p>See how we automate the most document-heavy industries.</p>
+                </div>
+
+                <form id="booking-form" class="booking-form">
+                    <input type="text" id="user-name" placeholder="Full Name" required>
+                    <input type="text" id="user-company" placeholder="Company Name" required>
+                    <input type="email" id="user-email" placeholder="Work Email" required>
+                    <textarea id="user-message" placeholder="Tell us about your current bidding hurdles..." rows="4"></textarea>
+
+                    <button type="submit" id="submit-btn" class="nav-cta" style="width: 100%; border: none; cursor: pointer; padding: 18px;">
+                        Schedule My Demo
+                    </button>
+                </form>
+            </div>
+
+            <div id="success-state">
+                <div class="success-icon">✓</div>
+                <h2>Demo Request Sent!</h2>
+                <p>Thanks for reaching out. We've sent a confirmation to <br><strong id="confirmed-email"></strong>.</p>
+                <button onclick="window.location.href='index.html'" class="nav-cta" style="margin-top: 25px; border: none; cursor: pointer; padding: 12px 30px;">Return Home</button>
+            </div>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>&copy; 2026 Merge Point. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script type="module">
+        // Ensure firebase-config.js is in the same directory
+        import { db } from "./firebase-config.js";
+        import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        const bookingForm = document.getElementById('booking-form');
+        const submitBtn = document.getElementById('submit-btn');
+
+        bookingForm.addEventListener('submit', async (e) => {
+            // 1. STOP THE REFRESH (Prevents the URL ?Name=test error)
+            e.preventDefault();
+            e.stopImmediatePropagation();
+
+            submitBtn.innerText = "Processing...";
+            submitBtn.disabled = true;
+
+            const name = document.getElementById('user-name').value;
+            const company = document.getElementById('user-company').value;
+            const email = document.getElementById('user-email').value;
+            const message = document.getElementById('user-message').value;
+
+            try {
+                // 2. SEND TO FIRESTORE
+                // 'type' must match your Security Rules exactly
+                await addDoc(collection(db, "mail"), {
+                    to: "booking@mergepoint-software.com",
+                    from: "booking@mergepoint-software.com", 
+                    replyTo: email,
+                    type: "DEMO_REQUEST", 
+                    message: {
+                        subject: `New Demo Requested: ${company}`,
+                        html: `
+                            <div style="font-family: sans-serif; max-width: 600px; padding: 20px;">
+                                <h2>New Demo Lead</h2>
+                                <p><strong>Name:</strong> ${name}</p>
+                                <p><strong>Company:</strong> ${company}</p>
+                                <p><strong>Email:</strong> ${email}</p>
+                                <p><strong>Message:</strong> ${message}</p>
+                            </div>
+                        `
+                    },
+                    createdAt: serverTimestamp()
+                });
+
+                // 3. SUCCESS UI
+                document.getElementById('confirmed-email').innerText = email;
+                document.getElementById('form-state').style.display = 'none';
+                document.getElementById('success-state').style.display = 'block';
+
+            } catch (error) {
+                console.error("Firebase Error:", error);
+                alert("Submission failed. Please check your Firestore rules and ensure you have published them.");
+                submitBtn.innerText = "Schedule My Demo";
+                submitBtn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>

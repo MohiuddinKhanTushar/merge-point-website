@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Use Cases | Merge Point</title>
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* --- Animation System --- */
+        .reveal-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal-up.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Word-by-word Heading Animation */
+        .word {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(15px);
+            transition: all 0.8s ease-out;
+            margin-right: 0.2em;
+        }
+
+        .word.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Navigation States (Matching your script.js) --- */
+        .top-nav {
+            transition: transform 0.4s ease, background 0.4s ease, box-shadow 0.4s ease;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .nav-hidden {
+            transform: translateY(-100%);
+        }
+
+        /* --- Layout --- */
+        .use-case-hero {
+            height: 55vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: radial-gradient(circle at center, rgba(81, 112, 255, 0.06) 0%, transparent 70%);
+            padding: 0 20px;
+        }
+
+        .text-brand { color: #5170ff; }
+
+        .comparison-section {
+            padding: 80px 5%;
+            background: #fbfbfd;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .comp-card {
+            padding: 40px;
+            border-radius: 24px;
+            background: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .comp-card.negative { border-top: 4px solid #ff4b4b; }
+        .comp-card.positive { border-top: 4px solid #5170ff; }
+
+        /* --- ROI Split Screen Styles --- */
+        .roi-section {
+            padding: 120px 5%;
+            background: #fff;
+        }
+
+        .roi-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 80px;
+            max-width: 1200px;
+            margin: 0 auto;
+            align-items: center;
+        }
+
+        .roi-content { text-align: left; }
+
+        .roi-title {
+            font-size: 3rem;
+            line-height: 1.1;
+            margin: 20px 0;
+            color: #1d1d1f;
+        }
+
+        .roi-text {
+            font-size: 1.1rem;
+            color: #424245;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .roi-features {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 40px;
+        }
+
+        .roi-features li {
+            margin-bottom: 15px;
+            padding-left: 28px;
+            position: relative;
+            color: #1d1d1f;
+            font-weight: 500;
+        }
+
+        .roi-features li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #5170ff;
+            font-weight: bold;
+        }
+
+        .calculator-container {
+            width: 100%;
+            padding: 45px;
+            background: #fff;
+            border-radius: 35px;
+            border: 1px solid rgba(0,0,0,0.05);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.06);
+        }
+
+        .calc-slider {
+            width: 100%;
+            margin: 20px 0;
+            cursor: pointer;
+            accent-color: #5170ff;
+        }
+
+        .result-box {
+    margin: 30px 0;
+    padding: 30px;
+    background: #f8f9ff;
+    border-radius: 20px;
+    border: 1px dashed #5170ff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+        .result-box h4 { font-size: 2.8rem; color: #5170ff; margin: 0; }
+        
+        .calc-btn {
+            background: #5170ff;
+            color: white;
+            border: none;
+            padding: 20px 35px;
+            border-radius: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1.05rem;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .calc-btn:hover {
+            background: #3a56d4;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(81, 112, 255, 0.2);
+        }
+
+        .disclosure {
+            font-size: 0.75rem;
+            color: #86868b;
+            margin-top: 25px;
+            line-height: 1.4;
+        }
+
+        /* --- Industry Grid --- */
+        .industry-section {
+            padding: 100px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .industry-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .industry-card {
+            background: #fff;
+            border: 1px solid rgba(0,0,0,0.05);
+            padding: 50px 40px;
+            border-radius: 30px;
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .industry-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(81, 112, 255, 0.1);
+        }
+
+        .industry-icon {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 25px;
+            background: rgba(81, 112, 255, 0.1);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #5170ff;
+        }
+
+        @media (max-width: 992px) {
+            .roi-grid { grid-template-columns: 1fr; gap: 60px; text-align: center; }
+            .roi-content { text-align: center; }
+            .roi-features li { display: inline-block; margin: 10px 15px; padding-left: 0; }
+            .roi-features li::before { content: ""; }
+        }
+
+        @media (max-width: 768px) {
+            .comparison-grid { grid-template-columns: 1fr; }
+            .roi-title { font-size: 2.2rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="top-nav" id="main-nav">
+        <div class="nav-content">
+            <a href="index.html" class="nav-logo-link">
+                <img src="assets/website-logo.png" alt="Merge Point Logo" class="nav-logo-img">
+            </a>
+            
+            <button class="menu-toggle" aria-label="Toggle Menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+
+            <div class="nav-links">
+                <a href="product.html">Product</a>
+                <a href="use-case.html" class="active">Use Case</a>
+                <a href="contact.html" class="nav-cta">Book a Demo</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="use-case-hero">
+        <h1 class="section-title" id="staggered-heading">
+            <span class="word">Built</span> 
+            <span class="word">for</span> 
+            <span class="word text-brand">High-Stakes</span> 
+            <span class="word">Bidding.</span>
+        </h1>
+        <p class="section-subtitle reveal-up" id="hero-subtitle">See how Merge Point transforms the most document-heavy industries.</p>
+    </header>
+
+    <main>
+        <section class="comparison-section">
+            <div class="comparison-grid">
+                <div class="comp-card negative reveal-up" id="card-left">
+                    <h3 style="color:#ff4b4b">Traditional Bidding</h3>
+                    <p>Fragmented knowledge and manual retrieval.</p>
+                    <ul class="detail-list">
+                        <li>SMEs distracted by repetitive queries</li>
+                        <li>High risk of using outdated policy docs</li>
+                        <li>Bottlenecks during final review cycles</li>
+                    </ul>
+                </div>
+                <div class="comp-card positive reveal-up" id="card-right">
+                    <h3 class="text-brand">The Merge Point Way</h3>
+                    <p>Centralized AI-driven response drafting.</p>
+                    <ul class="detail-list">
+                        <li>Instant retrieval from Verified Source of Truth</li>
+                        <li>Drafts completed in minutes, not days</li>
+                        <li>Automated regional compliance (London)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="roi-section">
+            <div class="roi-grid reveal-up">
+                <div class="roi-content">
+                    
+                    <h2 class="roi-title">Reclaim Your <span class="text-brand">Competitive Edge.</span></h2>
+                    <p class="roi-text">
+                        Time spent hunting for documents is time lost on strategy. Merge Point automates the heavy lifting of RFI and RFP drafting so your best people can focus on winning.
+                    </p>
+                    <ul class="roi-features">
+                        <li>75% faster first-draft generation</li>
+                        <li>60% reduction in SME interruption</li>
+                        <li>Zero-risk regional data hosting (UK)</li>
+                    </ul>
+                </div>
+
+                <div class="calculator-container">
+                    <p style="font-weight: 600; margin-bottom: 10px;">Monthly Bid Volume</p>
+                    <input type="range" min="1" max="50" value="5" class="calc-slider" id="bid-range">
+                    <h3 id="bid-count" style="margin-top: 0;">5 Bids</h3>
+                    
+                    <div class="result-box">
+                        <p style="margin-bottom: 5px; font-size: 0.9rem; color: #86868b;">Estimated Monthly Savings</p>
+                        <h4 id="hours-saved">160 Hours</h4>
+                    </div>
+
+                    <button class="calc-btn" onclick="saveAndRedirect()">Book Demo to Claim These Hours</button>
+                    <p class="disclosure">*Based on average industry drafting times and a 75% efficiency gain using Merge Point AI.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="industry-section">
+            <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 50px;" class="reveal-up">Industry Solutions</h2>
+            <div class="industry-grid">
+                <div class="industry-card reveal-up">
+                    <div class="industry-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                    </div>
+                    <span class="product-tag">Tech & SaaS</span>
+                    <h3>Security Questionnaires</h3>
+                    <p>Automate SOC2 and technical RFIs by indexing your engineering specs.</p>
+                </div>
+
+                <div class="industry-card reveal-up">
+                    <div class="industry-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                    </div>
+                    <span class="product-tag">Infrastructure</span>
+                    <h3>Compliance & Safety</h3>
+                    <p>Manage sprawling H&S protocols. Ensure every bid reflects site-specific safety regulations.</p>
+                </div>
+
+                <div class="industry-card reveal-up">
+                    <div class="industry-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                    </div>
+                    <span class="product-tag">Regulated</span>
+                    <h3>Public Sector Tenders</h3>
+                    <p>Leverage europe-west2 hosting to meet UK government data residency mandates.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>&copy; 2026 Merge Point. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms & Conditions</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // --- 1. NAVIGATION & SCROLL LOGIC ---
+        const nav = document.getElementById('main-nav');
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinksContainer = document.querySelector('.nav-links');
+        const navLinks = document.querySelectorAll('.nav-links a');
+        let lastScrollY = window.scrollY;
+
+        if (menuToggle) {
+            menuToggle.addEventListener('click', () => {
+                const isActive = menuToggle.classList.toggle('active');
+                navLinksContainer.classList.toggle('active');
+                document.body.style.overflow = isActive ? 'hidden' : 'auto';
+            });
+        }
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menuToggle.classList.remove('active');
+                navLinksContainer.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        });
+
+        window.addEventListener('scroll', () => {
+            const currentScrollY = window.scrollY;
+            if (!navLinksContainer.classList.contains('active')) {
+                if (currentScrollY <= 10) {
+                    nav.classList.remove('nav-hidden');
+                    nav.style.background = "transparent";
+                    nav.style.boxShadow = "none";
+                } 
+                else if (currentScrollY > lastScrollY && currentScrollY > 100) {
+                    nav.classList.add('nav-hidden');
+                } 
+                else if (currentScrollY < lastScrollY) {
+                    nav.classList.remove('nav-hidden');
+                    nav.style.background = "rgba(255, 255, 255, 0.8)";
+                    nav.style.backdropFilter = "blur(10px)";
+                    nav.style.webkitBackdropFilter = "blur(10px)";
+                    nav.style.boxShadow = "0 4px 30px rgba(0, 0, 0, 0.03)";
+                }
+            }
+            lastScrollY = currentScrollY;
+        });
+
+        // --- 2. SEQUENTIAL HERO ANIMATIONS ---
+        window.addEventListener('DOMContentLoaded', () => {
+            const words = document.querySelectorAll('.word');
+            const subtitle = document.getElementById('hero-subtitle');
+            const cardLeft = document.getElementById('card-left');
+            const cardRight = document.getElementById('card-right');
+            
+            words.forEach((word, index) => {
+                setTimeout(() => {
+                    word.classList.add('animate');
+                }, 400 * index);
+            });
+
+            const totalWordTime = 400 * words.length;
+            setTimeout(() => {
+                subtitle.classList.add('active');
+            }, totalWordTime + 400);
+
+            setTimeout(() => {
+                cardLeft.classList.add('active');
+                setTimeout(() => {
+                    cardRight.classList.add('active');
+                }, 300);
+            }, totalWordTime + 1200);
+        });
+
+        // --- 3. SCROLL REVEAL OBSERVER ---
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    revealObserver.unobserve(entry.target); 
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('.reveal-up:not(#hero-subtitle):not(#card-left):not(#card-right)').forEach(el => {
+            revealObserver.observe(el);
+        });
+
+        // --- 4. CALCULATOR LOGIC ---
+        const slider = document.getElementById('bid-range');
+        const bidDisplay = document.getElementById('bid-count');
+        const hoursDisplay = document.getElementById('hours-saved');
+
+        slider.oninput = function() {
+            const bids = this.value;
+            bidDisplay.innerText = bids + (bids == 1 ? " Bid" : " Bids");
+            hoursDisplay.innerText = (bids * 32).toLocaleString() + " Hours";
+        };
+
+        function saveAndRedirect() {
+            localStorage.setItem('savedHours', hoursDisplay.innerText);
+            window.location.href = 'contact.html';
+        }
+    </script>
+</body>
+</html>

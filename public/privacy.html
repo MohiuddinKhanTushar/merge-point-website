@@ -18,12 +18,15 @@
             font-size: 3rem;
             margin-bottom: 40px;
             text-align: left;
+            color: #1d1d1f;
         }
         .policy-container h2 {
             color: #1d1d1f;
             margin-top: 40px;
             margin-bottom: 15px;
             font-size: 1.5rem;
+            border-bottom: 1px solid #f5f5f7;
+            padding-bottom: 10px;
         }
         .last-updated {
             color: #86868b;
@@ -34,6 +37,13 @@
         .policy-section {
             margin-bottom: 30px;
         }
+        .policy-container ul {
+            margin-bottom: 20px;
+            padding-left: 20px;
+        }
+        .policy-container li {
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
@@ -42,19 +52,23 @@
             <a href="index.html" class="nav-logo-link">
                 <img src="assets/website-logo.png" alt="Merge Point Logo" class="nav-logo-img">
             </a>
+
+            <button class="menu-toggle" aria-label="Toggle navigation">
+                <span class="hamburger"></span>
+            </button>
+
             <div class="nav-links">
                 <a href="index.html">Home</a>
                 <a href="product.html">Product</a>
-                <a href="pricing.html" class="active">Pricing</a>
+                <a href="pricing.html">Pricing</a>
                 <a href="use-case.html">Use Case</a>
-                <a href="index.html#documentation">Documentation</a>
-                <a href="contact.html" class="nav-cta">Get Started</a>
+                <a href="mailto:booking@mergepoint-software.com" class="nav-cta">Request a Demo</a>
             </div>
         </div>
     </nav>
 
     <main class="policy-container">
-        <span class="last-updated">Last Updated: February 20, 2026</span>
+        <span class="last-updated">Last Updated: February 27, 2026</span>
         <h1>Privacy Policy</h1>
 
         <div class="policy-section">
@@ -63,39 +77,45 @@
 
         <h2>1. Data Collection</h2>
         <p>We collect information necessary to provide our services, including:</p>
-        <ul class="detail-list">
+        <ul>
             <li><strong>Account Information:</strong> Name, email, and company details provided during sign-up.</li>
             <li><strong>Knowledge Base Content:</strong> Documents, RFIs, and SLAs you upload to your Source of Truth.</li>
-            <li><strong>Usage Data:</strong> Information on how you interact with our AI Workspace to improve performance.</li>
+            <li><strong>Payment Information:</strong> When you subscribe to a plan, payment data is collected directly by our payment processor.</li>
         </ul>
 
         <h2>2. Data Residency & Sovereignty</h2>
-        <p>As per our commitment to UK and European clients, all Knowledge Base data is stored in the <strong>europe-west2 (London)</strong> region. We ensure that your data remains within these boundaries to comply with local regulations and ensure low-latency sync between Firestore and Pinecone.</p>
+        <p>All Knowledge Base data is stored in the <strong>europe-west2 (London)</strong> region. We ensure that your data remains within these boundaries to comply with UK/EU regulations and ensure low-latency sync between Firestore and Pinecone.</p>
 
-        <h2>3. How We Use Your Data</h2>
+        <h2>3. Third-Party Processors</h2>
+        <p>We use trusted third-party services to ensure the security and functionality of Merge Point:</p>
+        <ul>
+            <li><strong>Stripe:</strong> To process subscription payments. Your credit card information is encrypted and handled entirely by Stripe; Merge Point never stores your full card details on our servers.</li>
+            <li><strong>Google Cloud/Firebase:</strong> To host our application infrastructure and database layers in the London region.</li>
+        </ul>
+
+        <h2>4. How We Use Your Data</h2>
         <p>Your data is used exclusively to:</p>
         <ul>
             <li>Generate bid drafts and analyze tender documents.</li>
             <li>Maintain your private Knowledge Base.</li>
-            <li>Provide technical support and security updates.</li>
+            <li>Manage your subscription and billing.</li>
         </ul>
         <p><strong>Merge Point does not sell your data or use your proprietary documents to train foundation models for other customers.</strong></p>
 
-        <h2>4. Security</h2>
+        <h2>5. Security</h2>
         <p>We employ enterprise-grade security measures, including AES-256 encryption at rest and TLS encryption in transit. Access to your environment is strictly controlled via secure authentication protocols.</p>
 
-        <h2>5. Your Rights</h2>
-        <p>You retain full ownership of your data. You may export or request the permanent deletion of your Knowledge Base at any time. Our `cleanupKnowledgeBase` protocols ensure that deletions are synced across all database layers instantly.</p>
+        <h2>6. Your Rights</h2>
+        <p>You retain full ownership of your data. You may export or request the permanent deletion of your Knowledge Base at any time. Our <strong>cleanupKnowledgeBase</strong> protocols ensure that deletions are synced across Firebase, Firestore, and Pinecone immediately.</p>
 
-        <h2>6. Contact Us</h2>
-        <p>If you have questions regarding this policy, please contact our Data Protection Officer at <strong>privacy@mergepoint.ai</strong>.</p>
+        <h2>7. Contact Us</h2>
+        <p>If you have questions regarding this policy, please contact our Data Protection Officer at <strong>privacy@mergepoint-software.com</strong>.</p>
     </main>
 
     <footer class="site-footer">
         <div class="footer-content">
             <p>&copy; 2026 Merge Point. All rights reserved.</p>
             <div class="footer-links">
-                <a href="index.html">Home</a>
                 <a href="contact.html">Contact Us</a>
                 <a href="terms.html">Terms & Conditions</a>
             </div>

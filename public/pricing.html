@@ -53,10 +53,12 @@
             border: 2px solid #5170ff;
         }
 
+        /* FIXED: Centered Badge */
         .badge {
             position: absolute;
             top: -14px;
-            right: 20px;
+            left: 50%;
+            transform: translateX(-50%);
             background: #5170ff;
             color: white;
             padding: 4px 14px;
@@ -64,6 +66,8 @@
             font-size: 0.75rem;
             font-weight: 700;
             text-transform: uppercase;
+            white-space: nowrap;
+            z-index: 10;
         }
 
         .price-header h3 { margin-bottom: 5px; color: #1a1a1a; font-size: 1.4rem; }
@@ -101,6 +105,10 @@
             font-weight: 700;
             transition: all 0.2s ease;
             display: block;
+            cursor: pointer;
+            border: none;
+            width: 100%;
+            font-family: inherit;
         }
 
         .primary-cta { background: #5170ff; color: white; }
@@ -169,7 +177,7 @@
                     <li>Standard Email Support</li>
                     <li>Secure UK Hosting</li>
                 </ul>
-                <a href="signup.html?plan=starter" class="price-cta secondary-cta">Select Starter</a>
+                <button onclick="goToPayment('https://buy.stripe.com/test_8x28wH9eygxlaPm2zM2Nq00')" class="price-cta secondary-cta">Select Starter</button>
             </div>
 
             <div class="price-card featured bento-item">
@@ -185,7 +193,7 @@
                     <li><strong>Priority Support</strong></li>
                     <li><strong>Direct Onboarding Call</strong></li>
                 </ul>
-                <a href="signup.html?plan=business" class="price-cta primary-cta">Select Business</a>
+                <button onclick="goToPayment('https://buy.stripe.com/test_28EfZ9bmG2Gv4qY4HU2Nq01')" class="price-cta primary-cta">Select Business</button>
             </div>
 
             <div class="price-card bento-item">
@@ -219,5 +227,15 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>
+        /**
+         * Standard Redirect for 2026 Stripe Payment Links.
+         * Redirects the user directly to the Stripe-hosted checkout page.
+         */
+        function goToPayment(stripeUrl) {
+            console.log("Redirecting to Stripe payment page...");
+            window.location.href = stripeUrl;
+        }
+    </script>
 </body>
 </html>
